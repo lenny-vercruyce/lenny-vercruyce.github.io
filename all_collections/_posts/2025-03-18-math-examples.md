@@ -35,6 +35,6 @@ func main() {
     }
 }
 ```
-If you run this code multiple times you’ll get the same “random” numbers each time unless you explicitly set a seed. This isn’t a Go specific problem, similar behavior appears in Python, Java, C, and others.
-In different languages, randomness failures usually aren’t dramatic. Instead, they cause biased data, predictable outcomes, or subtle security issues. The key is understanding which randomness tool your language provides, when to seed it, and when to switch to a cryptographically secure alternative.
-Properly handling randomness ensures your application behaves reliably and remains secure.
+If you run this code multiple times you’ll get the same “random” numbers each time unless you explicitly set a seed. This isn’t a Go specific problem, the same happens in Python, Java, C, and others.
+
+In different languages, randomness failures usually aren’t dramatic but they give you predictable outcomes or subtle security issues. The key is understanding which randomness tool your language provides, when to seed it, and when to switch to a more serious and secure alternative.
