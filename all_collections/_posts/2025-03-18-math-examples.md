@@ -1,8 +1,7 @@
 ---
 layout: post
-title: Math Examples
-date: 2025-03-18
-categories: [tutorial, math]
+title: Randomness failures
+date: 2025-11-30
 ---
 
 # Math Support in Markdown
