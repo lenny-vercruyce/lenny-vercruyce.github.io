@@ -11,8 +11,11 @@ Randomness is a key part of many systems, games,security tokens and more. But wh
 Here are some examples:
 
 JavaScript uses Math.random(), which is fast but not cryptographically secure. It’s perfectly fine for animations or small UI tasks but should never be used for passwords or tokens.
+
 Python provides the random module for general use and the secrets module for anything security-related. Mixing them up is a common beginner mistake.
+
 Java and C# have PRNGs that are predictable if you reuse seeds, and their default implementations are not made for situations where you need great security.
+
 Go separates its generators entirely: math/rand for general randomness and crypto/rand for security. This separation prevents accidental misuse, but only if developers know the difference.
 
 One of the most common sources of randomness failure in any language is improper seeding. Without a good seed, the PRNG often produces the same sequence every time the program runs.
