@@ -4,54 +4,34 @@ title: Randomness failures
 date: 2025-11-30
 ---
 
-# Math Support in Markdown
+# Randomness failures
 
-This page demonstrates how to use math expressions in Markdown.
+Randomness is a key part of many systems, games,security tokens and more. But what many developers realize early on is that randomness in programming isn’t truly random. Computers and programming languages are terrible at being random. However, every programming language handles randomness differently.
 
-## Inline Math
+Here are some examples:
 
-- Einstein's famous equation: $E = mc^2$
-- The Pythagorean theorem: $a^2 + b^2 = c^2$
-- A simple fraction: $\frac{1}{2}$
+JavaScript uses Math.random(), which is fast but not cryptographically secure. It’s perfectly fine for animations or small UI tasks but should never be used for passwords or tokens.
+Python provides the random module for general use and the secrets module for anything security-related. Mixing them up is a common beginner mistake.
+Java and C# have PRNGs that are predictable if you reuse seeds, and their default implementations are not made for situations where you need great security.
+Go separates its generators entirely: math/rand for general randomness and crypto/rand for security. This separation prevents accidental misuse, but only if developers know the difference.
 
-## Display Math
+One of the most common sources of randomness failure in any language is improper seeding. Without a good seed, the PRNG often produces the same sequence every time the program runs.
+Here’s a Go example showing this issue:
 
-The quadratic formula:
+```go
+package main
 
-$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+import (
+    "fmt"
+    "math/rand"
+)
 
-Maxwell's Equations:
-
-$$
-\begin{align}
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\
-\nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-\nabla \cdot \vec{\mathbf{B}} & = 0
-\end{align}
-$$
-
-A matrix:
-
-$$
-\begin{pmatrix}
-a & b & c \\
-d & e & f \\
-g & h & i
-\end{pmatrix}
-$$
-
-## Usage Instructions
-
-You can write math expressions in your Markdown files using:
-
-1. Inline math: `$...$` or `\(...\)`
-2. Display math: `$$...$$` or `\[...\]`
-
-For example, to write Einstein's equation inline, type `$E = mc^2$`.
-
-For a block equation like the quadratic formula, use:
-
+func main() {
+    for i := 0; i < 5; i++ {
+        fmt.Println(rand.Intn(100))
+    }
+}
 ```
-$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
-```
+If you run this code multiple times you’ll get the same “random” numbers each time unless you explicitly set a seed. This isn’t a Go specific problem, similar behavior appears in Python, Java, C, and others.
+In different languages, randomness failures usually aren’t dramatic. Instead, they cause biased data, predictable outcomes, or subtle security issues. The key is understanding which randomness tool your language provides, when to seed it, and when to switch to a cryptographically secure alternative.
+Properly handling randomness ensures your application behaves reliably and remains secure.
